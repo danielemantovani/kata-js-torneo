@@ -45,3 +45,26 @@ const training = fighters.map(fighter => {
 
 console.log("Combattenti con potenza aggiornata dopo l'allenamento", training);
 
+
+// **Milestone 3 - Qualificazione:**
+
+// escludiamo dal torneo chi, dopo l'allenamento non è riuscito a raggiungere una potenza di almeno 2000.
+
+const selectionFighter = training.filter(fighter =>{
+
+    return fighter.power >= 2000;
+
+});
+
+console.log("Combattenti qualificati per la fase finale del torneo", selectionFighter);
+
+
+// **Milestone 4 - Combattimento:**
+
+// i combattimenti si svolgeranno tra un partecipante e il successivo dell'elenco, assicurandosi che ognuno combatta una sola volta. 
+
+// In ogni scontro vincerà il combattente con la potenza più alta. In caso di parità vincerà chi "gioca in casa", ossia chi viene prima nell'elenco.
+
+
+
+
