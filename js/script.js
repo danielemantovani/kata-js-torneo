@@ -3,7 +3,7 @@
 // ogni combattente sceglierà casualmente un'arma dalla relativa lista. Una volta scelta, un'arma non sarà più disponibile per i successivi combattenti.
 
 // creo un nuovo array con i combattenti e le armi che gli vengono assegnate
-const weaponFighter = fighters.map(fighter =>{
+const weaponFighter = fighters.map(fighter => {
 
     // creo una variabile per generare casualmente l'indice di un oggetto nell'array weapons 
     const randomWeapon = Math.floor(Math.random() * weapons.length);
@@ -14,15 +14,15 @@ const weaponFighter = fighters.map(fighter =>{
     // rimuovo l'arma prelevata dall'array weapons per evitare che venga presa due volte 
     weapons.splice(randomWeapon, 1);
 
-     // restituisco un nuovo oggetto, copiando i dati del guerriero originale e aggiungendo l'arma assegnata
-    return{
+    // restituisco un nuovo oggetto, copiando i dati del guerriero originale e aggiungendo l'arma assegnata
+    return {
         ...fighter, // copia l'oggetto fighter 
         weapon: selectedWeapon // abbinandogli le armi associate
     };
 
 });
 
-console.log("Array dei combattenti con la loro arma",weaponFighter);
+console.log("Array dei combattenti con la loro arma", weaponFighter);
 
 
 // **Milestone 2 - Allenamento:**
@@ -50,7 +50,7 @@ console.log("Combattenti con potenza aggiornata dopo l'allenamento", training);
 
 // escludiamo dal torneo chi, dopo l'allenamento non è riuscito a raggiungere una potenza di almeno 2000.
 
-const selectionFighter = training.filter(fighter =>{
+const selectionFighter = training.filter(fighter => {
 
     return fighter.power >= 2000;
 
@@ -64,6 +64,51 @@ console.log("Combattenti qualificati per la fase finale del torneo", selectionFi
 // i combattimenti si svolgeranno tra un partecipante e il successivo dell'elenco, assicurandosi che ognuno combatta una sola volta. 
 
 // In ogni scontro vincerà il combattente con la potenza più alta. In caso di parità vincerà chi "gioca in casa", ossia chi viene prima nell'elenco.
+
+let winners = [];
+
+// creo un nuovo guerriero nel caso in cui i combattenti fossero dispari
+if(selectionFighter.length % 2 !== 0){
+
+    const newWarrior = {name: "Robot", power:4000};
+
+    selectionFighter.push(newWarrior);
+}
+
+for (let i = 0; i < selectionFighter.length; i += 2) {
+
+    const fighter1 = selectionFighter[i];     // primo combattente
+    const fighter2 = selectionFighter[i + 1]; // secondo combattente
+
+    // console.log(fighter1, fighter2); 
+    
+    if (fighter1.power >= fighter2.power) {
+        winners.push(fighter1);
+        // console.log(fighter1.name, 'win');
+    }
+    else{
+        winners.push(fighter2)
+        // console.log(fighter2.name, 'win');
+    };
+
+}
+
+console.log("I più forti del torneo sono", winners);
+
+
+// **Milestone 5 - Premiazione:**
+
+// tra tutti i vincitori degli scontri, saliranno sul podio i 3 combattenti con la potenza più alta, in ordine decrescente.
+
+const strongerWarriors = winners.sort((a, b) => a.power - b.power);
+
+strongerWarriors.reverse();
+
+const poleWinners= strongerWarriors.slice(0, 3);
+
+console.log("Top 3 dei combattenti più potenti del torneo", poleWinners);
+
+
 
 
 
