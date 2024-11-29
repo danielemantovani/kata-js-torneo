@@ -14,15 +14,15 @@ const weaponFighter = fighters.map(fighter => {
     // rimuovo l'arma prelevata dall'array weapons per evitare che venga presa due volte 
     weapons.splice(randomWeapon, 1);
 
-    // restituisco un nuovo oggetto, copiando i dati del guerriero originale e aggiungendo l'arma assegnata
+    // restituisco un nuovo oggetto, copiando i dati del guerriero originale aggiungendo l'arma assegnata
     return {
         ...fighter, // copia l'oggetto fighter 
-        weapon: selectedWeapon // abbinandogli le armi associate
+        weapon: selectedWeapon // aggiunge al combattente una nuova proprietà, l'arma 
     };
 
 });
 
-console.log("Array dei combattenti con la loro arma", weaponFighter);
+console.log("Array dei combattenti con la loro arma:", weaponFighter);
 
 
 // **Milestone 2 - Allenamento:**
@@ -32,7 +32,8 @@ console.log("Array dei combattenti con la loro arma", weaponFighter);
 const training = fighters.map(fighter => {
 
     // genero un numero casuale tra 1 e 100
-    const randomPower = Math.random() * (100 - 1) + 1;
+    const randomPower = Math.floor(Math.random() * 100) + 1;
+
 
     // aumento la potenza del combattente
     const newPower = fighter.power * randomPower;
@@ -43,7 +44,7 @@ const training = fighters.map(fighter => {
     };
 });
 
-console.log("Combattenti con potenza aggiornata dopo l'allenamento", training);
+console.log("Combattenti con potenza aggiornata dopo l'allenamento:", training);
 
 
 // **Milestone 3 - Qualificazione:**
@@ -56,7 +57,7 @@ const selectionFighter = training.filter(fighter => {
 
 });
 
-console.log("Combattenti qualificati per la fase finale del torneo", selectionFighter);
+console.log("Combattenti qualificati per la fase finale del torneo:", selectionFighter);
 
 
 // **Milestone 4 - Combattimento:**
@@ -93,7 +94,7 @@ for (let i = 0; i < selectionFighter.length; i += 2) {
 
 }
 
-console.log("I più forti del torneo sono", winners);
+console.log("I più forti del torneo sono:", winners);
 
 
 // **Milestone 5 - Premiazione:**
@@ -106,10 +107,32 @@ strongerWarriors.reverse();
 
 const poleWinners= strongerWarriors.slice(0, 3);
 
-console.log("Top 3 dei combattenti più potenti del torneo", poleWinners);
+console.log("Top 3 dei combattenti più potenti del torneo:", poleWinners);
 
 
+// **Bonus:**
 
+// Il torneo non finisce qui! Dopo il primo girone di scontri, non passiamo subito alla premiazione, ma facciamo in modo che i vincitori si scontrino ancora e ancora, finchè non ne resterà solo uno!
+
+while (winners.length > 1) {
+
+    const nextRound = [];
+
+    for (let i = 0; i < winners.length; i += 2) {
+        const fighter1 = winners[i];
+        const fighter2 = winners[i + 1];
+
+        if (!fighter2 || fighter1.power >= fighter2.power) {
+            nextRound.push(fighter1); 
+        } else {
+            nextRound.push(fighter2); 
+        }
+    }
+
+    winners = nextRound; // aggiorna i partecipanti per il prossimo turno
+}
+
+console.log("Campione finale:", winners[0]);
 
 
 
